@@ -37,6 +37,11 @@ using TabbedPageRenderer = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Ta
 using FlyoutPageRenderer = Microsoft.Maui.Controls.Compatibility.Platform.iOS.PhoneFlyoutPageRenderer;
 using RadioButtonRenderer = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.DefaultRenderer;
 using DefaultRenderer = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.DefaultRenderer;
+#elif TIZEN
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen;
+using BoxRenderer = Microsoft.Maui.Controls.Compatibility.Platform.Tizen.BoxViewRenderer;
+using CollectionViewRenderer = Microsoft.Maui.Controls.Compatibility.Platform.Tizen.StructuredItemsViewRenderer;
+using OpenGLViewRenderer = Microsoft.Maui.Controls.Compatibility.Platform.Tizen.DefaultRenderer;
 #endif
 
 namespace Microsoft.Maui.Controls.Hosting
@@ -82,7 +87,7 @@ namespace Microsoft.Maui.Controls.Hosting
 					handlers.AddMauiControlsHandlers();
 					DependencyService.SetToInitialized();
 
-#if __ANDROID__ || __IOS__ || WINDOWS || MACCATALYST
+#if __ANDROID__ || __IOS__ || WINDOWS || MACCATALYST || TIZEN
 
 					handlers.TryAddCompatibilityRenderer(typeof(BoxView), typeof(BoxRenderer));
 					handlers.TryAddCompatibilityRenderer(typeof(Entry), typeof(EntryRenderer));
@@ -188,7 +193,7 @@ namespace Microsoft.Maui.Controls.Hosting
 		{
 			public void Initialize(IServiceProvider services)
 			{
-#if __ANDROID__ || __IOS__ || WINDOWS || MACCATALYST
+#if __ANDROID__ || __IOS__ || WINDOWS || MACCATALYST || TIZEN
 				CompatServiceProvider.SetServiceProvider(services);
 #endif
 

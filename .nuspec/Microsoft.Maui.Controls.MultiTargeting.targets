@@ -23,6 +23,14 @@
     <Compile Remove="**\Android\**\*.cs" />
     <None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) != true AND $(TargetFramework.StartsWith('net6.0-tizen')) != true ">
+    <Compile Remove="**\*.Tizen.cs" />
+    <None Include="**\*.Tizen.cs" />
+    <Compile Remove="**\Tizen\*.cs" />
+    <None Include="**\Tizen\*.cs" />
+    <Compile Remove="**\Tizen\**\*.cs" />
+    <None Include="**\Tizen\**\*.cs" />
+  </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard')) != true AND '$(TargetFramework)' != 'net6.0'">
     <Compile Remove="**\*.Standard.cs" />
     <None Include="**\*.Standard.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
@@ -87,6 +95,11 @@
     <DefineConstants>$(DefineConstants);MACCATALYST;IOS</DefineConstants>
   </PropertyGroup>
 
+  <!-- Tizen  -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0-tizen'">
+    <DefineConstants>$(DefineConstants);TIZEN</DefineConstants>
+  </PropertyGroup>
+
   <!-- If this becomes part of the product we will remove these but for now it's useful having them all in one place -->
   <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid')) == true OR '$(TargetPlatformIdentifier)' == 'android' OR '$(TargetFramework)' == 'net6.0-android'">
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" />
@@ -112,5 +125,8 @@
     <PackageReference Include="Microsoft.WindowsAppSDK.InteractiveExperiences" NoWarn="NU1701" />
     <PackageReference Include="Microsoft.Graphics.Win2D" />
     <PackageReference Include="Microsoft.Maui.Graphics.Win2D.WinUI.Desktop" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) == true OR '$(TargetFramework)' == 'net6.0-tizen'">
+    <PackageReference Include="Tizen.UIExtensions.ElmSharp" Version="0.3.0-pre1" />
   </ItemGroup>
 </Project>
