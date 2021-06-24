@@ -48,7 +48,7 @@ namespace Maui.Controls.Sample
 #elif WINDOWS
 					handlers.AddCompatibilityRenderer(typeof(CustomButton),
 						typeof(Microsoft.Maui.Controls.Compatibility.Platform.UWP.ButtonRenderer));
-#elif __TIZEN__
+#elif TIZEN
 					handlers.AddCompatibilityRenderer(typeof(CustomButton),
 						typeof(Microsoft.Maui.Controls.Compatibility.Platform.Tizen.ButtonRenderer));
 #endif
@@ -84,6 +84,17 @@ namespace Maui.Controls.Sample
 				logging.AddConsole();
 #endif
 			});
+#if TIZEN
+			services.AddTransient<InitializationOptions>((_) => 
+			{
+				var option = new InitializationOptions
+				{
+					DisplayResolutionUnit = DisplayResolutionUnit.DP(true),
+					UseSkiaSharp = true
+				};
+				return option;
+			});
+#endif
 
 			services.AddSingleton<ITextService, TextService>();
 			services.AddTransient<MainViewModel>();
