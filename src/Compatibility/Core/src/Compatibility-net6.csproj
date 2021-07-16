@@ -58,18 +58,7 @@
   <ItemGroup Condition=" '$(TargetPlatformIdentifier)' == 'tizen'" >
     <Compile Include="$(TizenRoot)**\*.cs"></Compile>
     <EmbeddedResource Include="$(TizenRoot)Resources\*.resx" />
-    <Compile Remove="$(TizenRoot)bin\**\*.cs" />
-    <Compile Remove="$(TizenRoot)obj\**\*.cs" />
-    <Compile Include="RendererToHandlerShim.Tizen.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="RendererToHandlerShim.cs" />
-    <Compile Include="AppHostBuilderExtensions.cs" />
-    <Compile Include="MauiHandlersCollectionExtensions.cs" />
-    <Compile Include="ExportRendererAttribute.cs" />
-    <Compile Include="Forms.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="$(TizenRoot)Resources\*.png" />
   </ItemGroup>
 
   <ItemGroup>
