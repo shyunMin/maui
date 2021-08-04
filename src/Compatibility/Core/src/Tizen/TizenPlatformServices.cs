@@ -120,8 +120,6 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Tizen
 
 		public string GetHash(string input) => Crc64.GetHash(input);
 
-		string IPlatformServices.GetMD5Hash(string input) => GetHash(input);
-
 		public void QuitApplication()
 		{
 			Forms.Context.Exit();
