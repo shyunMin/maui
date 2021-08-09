@@ -5,6 +5,7 @@
     <IncludeWindowsTargetFrameworks Condition="($([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full') or ('$(Packing)' == 'true')">true</IncludeWindowsTargetFrameworks>
     <BuildForAndroidOnly Condition="$(SolutionFileName.StartsWith('._Microsoft.Maui.Droid')) and '$(Packing)' == ''">true</BuildForAndroidOnly>
     <BuildForiOSOnly Condition="$(SolutionFileName.StartsWith('._Microsoft.Maui.iOS')) and '$(Packing)' == ''">true</BuildForiOSOnly>
+    <BuildForTizenOnly Condition="$(SolutionFileName.StartsWith('._Microsoft.Maui.Tizen')) and '$(Packing)' == ''">true</BuildForiOSOnly>
     <BuildForLegacy Condition="($(SolutionFileName.StartsWith('._')) or $(SolutionFileName.StartsWith('Comet'))) and !$(SolutionFileName.Contains('-net6')) and '$(Packing)' == ''">true</BuildForLegacy>
   </PropertyGroup>
 
@@ -27,16 +28,17 @@
     <MacosTargetFrameworkVersion>10.14</MacosTargetFrameworkVersion>
     <AndroidTargetFrameworkVersion>30.0</AndroidTargetFrameworkVersion>
     <WindowsTargetFrameworkVersion>10.0.19041</WindowsTargetFrameworkVersion>
+    <TizenTargetFrameworkVersion>6.5</TizenTargetFrameworkVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(BuildForLegacy)' != 'True'">
     <!-- the real TFMs -->
-    <MauiPlatforms>net6.0-ios;net6.0-maccatalyst;net6.0-android</MauiPlatforms>
+    <MauiPlatforms>net6.0-ios;net6.0-maccatalyst;net6.0-android;net6.0-tizen</MauiPlatforms>
     <WindowsMauiPlatforms Condition="'$(WindowsMauiPlatforms)' == ''">net6.0-windows$(WindowsTargetFrameworkVersion)</WindowsMauiPlatforms>
     <MauiPlatforms Condition="'$(IncludeWindowsTargetFrameworks)' == 'true'">$(MauiPlatforms);$(WindowsMauiPlatforms)</MauiPlatforms>
 
     <!-- Work around the IDE not properly handling the NU1703 warning -->
-    <MauiPlatformsNoMacCat>net6.0-ios;net6.0-android</MauiPlatformsNoMacCat>
+    <MauiPlatformsNoMacCat>net6.0-ios;net6.0-android;net6.0-tizen</MauiPlatformsNoMacCat>
     <MauiPlatformsNoMacCat Condition="'$(IncludeWindowsTargetFrameworks)' == 'true'">$(MauiPlatformsNoMacCat);$(WindowsMauiPlatforms)</MauiPlatformsNoMacCat>
   </PropertyGroup>
 
@@ -53,6 +55,8 @@
     <MauiAdditionalPlatforms Condition="'$(BuildForiOSOnly)' == 'true'"></MauiAdditionalPlatforms>
     <MauiPlatforms Condition="'$(BuildForAndroidOnly)' == 'true'">MonoAndroid10.0</MauiPlatforms>
     <MauiAdditionalPlatforms Condition="'$(BuildForAndroidOnly)' == 'true'"></MauiAdditionalPlatforms>
+    <MauiPlatforms Condition="'$(BuildForTizenOnly)' == 'true'">tizen40</MauiPlatforms>
+    <MauiAdditionalPlatforms Condition="'$(BuildForTizenOnly)' == 'true'"></MauiAdditionalPlatforms>
   </PropertyGroup>
 
   <PropertyGroup>
