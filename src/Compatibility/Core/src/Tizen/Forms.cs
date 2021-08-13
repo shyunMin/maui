@@ -622,6 +622,8 @@ namespace Microsoft.Maui.Controls.Compatibility
 		/// <returns></returns>
 		public static double ConvertToScaledDP(int pixel)
 		{
+			if (pixel == int.MaxValue)
+				return double.PositiveInfinity;
 			return pixel / Device.Info.ScalingFactor;
 		}
 
@@ -635,6 +637,8 @@ namespace Microsoft.Maui.Controls.Compatibility
 		/// <returns></returns>
 		public static double ConvertToScaledDP(double pixel)
 		{
+			if (pixel == double.PositiveInfinity)
+				return double.PositiveInfinity;
 			return pixel / Device.Info.ScalingFactor;
 		}
 
