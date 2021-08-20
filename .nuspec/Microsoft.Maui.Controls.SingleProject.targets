@@ -17,6 +17,9 @@
     <!-- Windows -->
     <EnableDefaultWindowsItems>false</EnableDefaultWindowsItems>
     <WindowsProjectFolder Condition=" '$(WindowsProjectFolder)' == '' ">$(PlatformsProjectFolder)\Windows\</WindowsProjectFolder>
+    <!-- Tizen -->
+    <EnableDefaultTizenItems>false</EnableDefaultTizenItems>
+    <TizenProjectFolder Condition=" '$(TizenProjectFolder)' == '' ">$(PlatformsProjectFolder)Tizen\</TizenProjectFolder>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(SingleProject)' == 'true' and '$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))' == 'android' ">
@@ -47,6 +50,11 @@
     <WindowsPackageType Condition="'$(EnablePreviewMsixTooling)' == 'true'">MSIX</WindowsPackageType>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(SingleProject)' == 'true' and '$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))' == 'tizen' ">
+    <TizenManifestFile Condition=" Exists('$(TizenProjectFolder)tizen-manifest.xml') ">$(TizenProjectFolder)tizen-manifest.xml</TizenManifestFile>
+    <TizenResourcePrefix>$(TizenProjectFolder)res</TizenResourcePrefix>
+  </PropertyGroup>
+
   <!-- Removals -->
   <ItemGroup Condition=" '$(EnableDefaultItems)' == 'true' and '$(SingleProject)' == 'true' ">
     <!-- Explicitly include the platform code -->
@@ -62,6 +70,9 @@
     <_MauiCompileToAdd
         Condition=" '$(TargetPlatformIdentifier)' == 'windows' and '$(WindowsProjectFolder)' != '' "
         Include="$(WindowsProjectFolder)**/*$(DefaultLanguageSourceExtension)" />
+    <_MauiCompileToAdd
+        Condition=" '$(TargetPlatformIdentifier)' == 'tizen' and '$(TizenProjectFolder)' != '' "
+        Include="$(TizenProjectFolder)**/*$(DefaultLanguageSourceExtension)" />
     <None Include="$(PlatformsProjectFolder)**/*$(DefaultLanguageSourceExtension)" Exclude="@(_MauiCompileToAdd)" />
     <Compile Remove="$(PlatformsProjectFolder)**/*$(DefaultLanguageSourceExtension)" />
     <Compile Include="@(_MauiCompileToAdd)" />
