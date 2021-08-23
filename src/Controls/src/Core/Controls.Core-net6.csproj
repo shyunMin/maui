@@ -7,6 +7,7 @@
     <IsPackable>false</IsPackable>
     <_MauiDesignDllBuild Condition=" '$(OS)' != 'Unix' And '$(MSBuildRuntimeType)' == 'Full'">True</_MauiDesignDllBuild>
     <GitInfoReportImportance>high</GitInfoReportImportance>
+    <TizenRoot>Platform\Tizen\</TizenRoot>
   </PropertyGroup>
 
   <Import Project="..\..\..\..\.nuspec\Microsoft.Maui.Controls.MultiTargeting.targets" />
@@ -28,6 +29,11 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Logging" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="$(TargetFramework.Contains('-tizen'))">
+    <None Remove="$(TizenRoot)Resources\*.png" />
+    <EmbeddedResource Include="$(TizenRoot)Resources\*.png" />
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(_MauiDesignDllBuild)' == 'True'">

@@ -10,7 +10,7 @@ namespace Microsoft.Maui.Controls.Hosting
 	{
 		static readonly Dictionary<Type, Type> DefaultMauiControlHandlers = new Dictionary<Type, Type>
 		{
-#if WINDOWS || __ANDROID__
+#if WINDOWS || __ANDROID__ || TIZEN
 			{ typeof(Shell), typeof(ShellHandler) },
 #endif
 			{ typeof(ActivityIndicator), typeof(ActivityIndicatorHandler) },

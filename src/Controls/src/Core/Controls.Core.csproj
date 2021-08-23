@@ -4,6 +4,7 @@
 		<AssemblyName>Microsoft.Maui.Controls</AssemblyName>
 		<RootNamespace>Microsoft.Maui.Controls</RootNamespace>
 		<AndroidRoot>Platform\Android\</AndroidRoot>
+		<TizenRoot>Platform\Tizen\</TizenRoot>
 	</PropertyGroup>
 	<PropertyGroup>
 		<PackageId>Microsoft.Maui.Controls</PackageId>
@@ -24,6 +25,10 @@
     <AndroidResource Include="$(AndroidRoot)Resources\anim\exittoleft.xml" />
     <AndroidResource Include="$(AndroidRoot)Resources\anim\exittoright.xml" />
     <AndroidResource Include="$(AndroidRoot)Resources\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
+    <None Remove="$(TizenRoot)Resources\*.png" />
+    <EmbeddedResource Include="$(TizenRoot)Resources\*.png" />
   </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Core\src\Core.csproj" />
