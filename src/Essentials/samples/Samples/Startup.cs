@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
@@ -15,8 +17,20 @@ namespace Samples
 			Microsoft.Maui.Essentials.Platform.MapServiceToken =
 				"RJHqIE53Onrqons5CNOx~FrDr3XhjDTyEXEjng-CRoA~Aj69MhNManYUKxo6QcwZ0wmXBtyva0zwuHB04rFYAPf7qqGJ5cHb03RCDw1jIW8l";
 #endif
-
 			appBuilder
+				.ConfigureServices(services =>
+				{
+#if TIZEN
+					services.AddTransient((_) =>
+					{
+						var option = new InitializationOptions
+						{
+							DisplayResolutionUnit = DisplayResolutionUnit.DP(true),
+						};
+						return option;
+					});
+#endif
+				})
 				.ConfigureLifecycleEvents(lifecycle =>
 				{
 #if __IOS__

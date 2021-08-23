@@ -10,7 +10,7 @@
     <StackLayout>
 
         <ListView ItemsSource="{Binding FilteredItems}"
-                  HasUnevenRows="{OnPlatform Default=True, macOS=False}"
+                  HasUnevenRows="{OnPlatform Default=True, macOS=False, Tizen=False}"
                   ItemTapped="OnSampleTapped"
                   VerticalOptions="FillAndExpand">
 

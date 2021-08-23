@@ -15,7 +15,7 @@
     </views:BasePage.BindingContext>
 
     <StackLayout>
-        <ListView HasUnevenRows="True" ItemsSource="{Binding PermissionItems}">
+        <ListView HasUnevenRows="{OnPlatform Default=True, Tizen=False}" ItemsSource="{Binding PermissionItems}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
