@@ -19,8 +19,9 @@ namespace Samples
 			VersionTracking.Track();
 
 			MainPage = new NavigationPage(new HomePage());
-
+#if !TIZEN
 			SetUpAppActions();
+#endif
 		}
 
 		async void SetUpAppActions()
