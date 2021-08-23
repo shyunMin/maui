@@ -4,6 +4,7 @@
 		<AssemblyName>Microsoft.Maui.Controls</AssemblyName>
 		<RootNamespace>Microsoft.Maui.Controls</RootNamespace>
 		<AndroidRoot>Platform\Android\</AndroidRoot>
+		<TizenRoot>Platform\Tizen\</TizenRoot>
 	</PropertyGroup>
 	<PropertyGroup>
 		<PackageId>Microsoft.Maui.Controls</PackageId>
@@ -30,6 +31,10 @@
   <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS')) ">
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
+    <None Remove="$(TizenRoot)Resources\*.png" />
+    <EmbeddedResource Include="$(TizenRoot)Resources\*.png" />
   </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\..\Core\src\Core.csproj" />

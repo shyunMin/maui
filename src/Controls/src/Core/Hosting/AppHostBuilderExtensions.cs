@@ -14,7 +14,7 @@ namespace Microsoft.Maui.Controls.Hosting
 #if __IOS__
 			{ typeof(CollectionView), typeof(CollectionViewHandler) },
 #endif
-#if WINDOWS || __ANDROID__
+#if WINDOWS || __ANDROID__ || TIZEN
 			{ typeof(Shell), typeof(ShellHandler) },
 #endif
 			{ typeof(Application), typeof(ApplicationHandler) },
@@ -51,7 +51,7 @@ namespace Microsoft.Maui.Controls.Hosting
 			{ typeof(Window), typeof(WindowHandler) },
 			{ typeof(ImageButton), typeof(ImageButtonHandler) },
 			{ typeof(IndicatorView), typeof(IndicatorViewHandler) },
-#if __ANDROID__ || __IOS__
+#if __ANDROID__ || __IOS__ || TIZEN
 			{ typeof(RefreshView), typeof(RefreshViewHandler) },
 			
 #endif
