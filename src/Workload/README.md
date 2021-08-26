@@ -93,6 +93,7 @@ installed:
 * `maui-maccatalyst`
 * `maui-macos`
 * `maui-windows`
+* `maui-tizen`
 
 Android has an `android` workload id that excludes AOT compilers, so
 `maui-android` will extend this. `android-aot` includes AOT support.
