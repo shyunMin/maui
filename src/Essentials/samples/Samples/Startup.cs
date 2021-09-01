@@ -18,19 +18,6 @@ namespace Samples
 				"RJHqIE53Onrqons5CNOx~FrDr3XhjDTyEXEjng-CRoA~Aj69MhNManYUKxo6QcwZ0wmXBtyva0zwuHB04rFYAPf7qqGJ5cHb03RCDw1jIW8l";
 #endif
 			appBuilder
-				.ConfigureServices(services =>
-				{
-#if TIZEN
-					services.AddTransient((_) =>
-					{
-						var option = new InitializationOptions
-						{
-							DisplayResolutionUnit = DisplayResolutionUnit.DP(true),
-						};
-						return option;
-					});
-#endif
-				})
 				.ConfigureLifecycleEvents(lifecycle =>
 				{
 #if __IOS__
@@ -47,9 +34,23 @@ namespace Samples
 						.AddWindows(windows => windows
 							.OnLaunched((app, e) =>
 								Microsoft.Maui.Essentials.Platform.OnLaunched(e)));
+#elif TIZEN
+					Microsoft.Maui.Essentials.Platform.Init(CoreUIAppContext.GetInstance(MauiApplication.Current).MainWindow);
 #endif
 				})
 				.UseMauiApp<App>();
+
+#if TIZEN
+			appBuilder
+				.Services.AddTransient((_) =>
+				{
+					var option = new InitializationOptions
+					{
+						DisplayResolutionUnit = DisplayResolutionUnit.DP(true),
+					};
+					return option;
+				});
+#endif
 
 			return appBuilder.Build();
 		}
