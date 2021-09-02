@@ -4,6 +4,8 @@ using NativeView = UIKit.UIView;
 using NativeView = Android.Views.View;
 #elif WINDOWS
 using NativeView = Microsoft.UI.Xaml.FrameworkElement;
+#elif TIZEN
+using NativeView = ElmSharp.EvasObject;
 #elif NETSTANDARD
 using NativeView = System.Object;
 #endif
