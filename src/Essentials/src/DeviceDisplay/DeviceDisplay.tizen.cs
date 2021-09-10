@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Tizen.Applications;
 
 namespace Microsoft.Maui.Essentials
 {
@@ -26,53 +27,83 @@ namespace Microsoft.Maui.Essentials
 			}
 		}
 
+		static CoreUIApplication CoreUIApplication
+		{
+			get
+			{
+				return Application.Current as CoreUIApplication;
+			}
+		}
+
+		static int displayWidth = Platform.GetFeatureInfo<int>("screen.width");
+		static int displayHeight = Platform.GetFeatureInfo<int>("screen.height");
+		static int displayDpi = DeviceInfo.Idiom == DeviceIdiom.TV ? 72 : Platform.GetFeatureInfo<int>("screen.dpi");
+		static DisplayOrientation displayOrientation = GetNaturalDisplayOrientation();
+		static DisplayRotation displayRotation = DisplayRotation.Rotation0;
 		static DisplayInfo GetMainDisplayInfo()
 		{
-			var display = Platform.MainWindow;
 			return new DisplayInfo(
-				width: display.ScreenSize.Width,
-				height: display.ScreenSize.Height,
-				density: display.ScreenDpi.X / (DeviceInfo.Idiom == DeviceIdiom.TV ? 72.0 : 160.0),
-				orientation: GetOrientation(),
-				rotation: GetRotation());
-		}
-
-		static DisplayOrientation GetOrientation()
-		{
-			return Platform.MainWindow.Rotation switch
-			{
-				0 => DisplayOrientation.Portrait,
-				90 => DisplayOrientation.Landscape,
-				180 => DisplayOrientation.Portrait,
-				270 => DisplayOrientation.Landscape,
-				_ => DisplayOrientation.Unknown,
-			};
-		}
-
-		static DisplayRotation GetRotation()
-		{
-			return Platform.MainWindow.Rotation switch
-			{
-				0 => DisplayRotation.Rotation0,
-				90 => DisplayRotation.Rotation90,
-				180 => DisplayRotation.Rotation180,
-				270 => DisplayRotation.Rotation270,
-				_ => DisplayRotation.Unknown,
-			};
+				width: displayWidth,
+				height: displayHeight,
+				density: displayDpi / 160.0,
+				orientation: displayOrientation,
+				rotation: displayRotation
+				);
 		}
 
 		static void StartScreenMetricsListeners()
 		{
-			Platform.MainWindow.RotationChanged += OnRotationChanged;
+			if (CoreUIApplication != null)
+			{
+				CoreUIApplication.DeviceOrientationChanged += OnRotationChanged;
+			}
 		}
 
 		static void StopScreenMetricsListeners()
 		{
-			Platform.MainWindow.RotationChanged -= OnRotationChanged;
+			if (CoreUIApplication != null)
+			{
+				CoreUIApplication.DeviceOrientationChanged -= OnRotationChanged;
+			}
 		}
 
-		static void OnRotationChanged(object s, EventArgs e)
+		static DisplayOrientation GetNaturalDisplayOrientation()
 		{
+			if (displayHeight >= displayWidth)
+			{
+				return DisplayOrientation.Portrait;
+			}
+			else
+			{
+				return DisplayOrientation.Landscape;
+			}
+		}
+
+		static void OnRotationChanged(object s, DeviceOrientationEventArgs e)
+		{
+			switch (e.DeviceOrientation)
+			{
+				case DeviceOrientation.Orientation_0:
+					displayRotation = DisplayRotation.Rotation0;
+					displayOrientation = GetNaturalDisplayOrientation();
+					break;
+				case DeviceOrientation.Orientation_90:
+					displayRotation = DisplayRotation.Rotation90;
+					displayOrientation = GetNaturalDisplayOrientation() == DisplayOrientation.Portrait ? DisplayOrientation.Landscape : DisplayOrientation.Portrait;
+					break;
+				case DeviceOrientation.Orientation_180:
+					displayRotation = DisplayRotation.Rotation180;
+					displayOrientation = GetNaturalDisplayOrientation();
+					break;
+				case DeviceOrientation.Orientation_270:
+					displayRotation = DisplayRotation.Rotation270;
+					displayOrientation = GetNaturalDisplayOrientation() == DisplayOrientation.Portrait ? DisplayOrientation.Landscape : DisplayOrientation.Portrait;
+					break;
+				default:
+					displayRotation = DisplayRotation.Unknown;
+					displayOrientation = DisplayOrientation.Unknown;
+					break;
+			}
 			OnMainDisplayInfoChanged(GetMainDisplayInfo());
 		}
 	}
