@@ -141,9 +141,9 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Tizen
 			var backgroundColor = appearance?.BackgroundColor;
 			var foregroundColor = appearance?.ForegroundColor;
 
-			_navBar.TitleColor = titleColor == null ? ShellRenderer.DefaultTitleColor.ToNativeEFL() : titleColor.ToNativeEFL();
-			_navBar.BackgroundColor = backgroundColor == null ? ShellRenderer.DefaultBackgroundColor.ToNativeEFL() : backgroundColor.ToNativeEFL();
-			_navBar.ForegroundColor = foregroundColor == null ? ShellRenderer.DefaultForegroundColor.ToNativeEFL() : foregroundColor.ToNativeEFL();
+			_navBar.TitleColor = titleColor.IsDefault() ? ShellRenderer.DefaultTitleColor.ToNativeEFL() : titleColor.ToNativeEFL();
+			_navBar.BackgroundColor = backgroundColor.IsDefault() ? ShellRenderer.DefaultBackgroundColor.ToNativeEFL() : backgroundColor.ToNativeEFL();
+			_navBar.ForegroundColor = foregroundColor.IsDefault() ? ShellRenderer.DefaultForegroundColor.ToNativeEFL() : foregroundColor.ToNativeEFL();
 		}
 
 

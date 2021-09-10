@@ -130,8 +130,8 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Tizen
 		{
 			var backgroundColor = (appearance as IShellAppearanceElement)?.EffectiveTabBarBackgroundColor;
 			var foregroundColor = appearance?.ForegroundColor;
-			ToolbarBackgroundColor = backgroundColor == null ? ShellRenderer.DefaultBackgroundColor.ToNative() : backgroundColor.ToNative();
-			ToolbarForegroundColor = foregroundColor == null ? ShellRenderer.DefaultForegroundColor.ToNative() : foregroundColor.ToNative();
+			ToolbarBackgroundColor = backgroundColor.IsDefault() ? ShellRenderer.DefaultBackgroundColor.ToNative() : backgroundColor.ToNative();
+			ToolbarForegroundColor = foregroundColor.IsDefault() ? ShellRenderer.DefaultForegroundColor.ToNative() : foregroundColor.ToNative();
 		}
 
 		void UpdateDisplayedPage(Page page)
