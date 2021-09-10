@@ -76,7 +76,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Tizen
 		/// </summary>
 		void CancelButtonColorPropertyHandler(bool initialize)
 		{
-			if (initialize && Element.CancelButtonColor == null)
+			if (initialize && Element.CancelButtonColor.IsDefault())
 				return;
 
 			Control.SetClearButtonColor(Element.CancelButtonColor.ToNative());
@@ -127,7 +127,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Tizen
 		/// </summary>
 		void PlaceholderColorPropertyHandler(bool initialize)
 		{
-			if (initialize && Element.TextColor == null)
+			if (initialize && Element.TextColor.IsDefault())
 				return;
 
 			Control.PlaceholderColor = Element.PlaceholderColor.ToNative();
@@ -169,7 +169,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Tizen
 		/// </summary>
 		void TextColorPropertyHandler(bool initialize)
 		{
-			if (initialize && Element.TextColor == null)
+			if (initialize && Element.TextColor.IsDefault())
 				return;
 
 			Control.TextColor = Element.TextColor.ToNative();
