@@ -140,7 +140,7 @@
   <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) == true OR '$(TargetFramework)' == 'net6.0-tizen'">
     <PackageReference
         Update="Microsoft.Maui.Graphics.Skia"
-        Version="$(_MicrosoftMauiGraphicsSkia)"
+        Version="$(MicrosoftMauiGraphicsVersion)"
     />
   </ItemGroup>
 
