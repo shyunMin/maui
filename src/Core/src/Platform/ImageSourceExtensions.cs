@@ -10,7 +10,9 @@ using NativeImage = UIKit.UIImage;
 using NativeImage = Android.Graphics.Drawables.Drawable;
 #elif WINDOWS
 using NativeImage = Microsoft.UI.Xaml.Media.ImageSource;
-#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
+#elif TIZEN
+using NativeImage = Tizen.UIExtensions.ElmSharp.Image;
+#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID && !TIZEN)
 using NativeImage = System.Object;
 #endif
 
@@ -48,6 +50,9 @@ namespace Microsoft.Maui
 			return imageSourceService.GetDrawableAsync(imageSource, mauiContext.Context!);
 #elif WINDOWS
 			return imageSourceService.GetImageSourceAsync(imageSource);
+#elif TIZEN
+			var nativeImage = new NativeImage(mauiContext.Context!.NativeParent!);
+			return imageSourceService.GetImageAsync(imageSource, nativeImage);
 #else
 			throw new NotImplementedException();
 #endif

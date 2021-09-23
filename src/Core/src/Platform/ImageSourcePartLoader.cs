@@ -11,7 +11,10 @@ using NativeView = Android.Views.View;
 #elif WINDOWS
 using NativeImage = Microsoft.UI.Xaml.Media.ImageSource;
 using NativeView = Microsoft.UI.Xaml.FrameworkElement;
-#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
+#elif TIZEN
+using NativeImage = Tizen.UIExtensions.ElmSharp.Image;
+using NativeView = Tizen.UIExtensions.ElmSharp.Image;
+#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID && !TIZEN)
 using NativeView = System.Object;
 using NativeImage = System.Object;
 #endif
@@ -67,7 +70,7 @@ namespace Microsoft.Maui
 
 				if (imageSource != null)
 				{
-#if __IOS__ || __ANDROID__ || WINDOWS
+#if __IOS__ || __ANDROID__ || WINDOWS || TIZEN
 					var result = await imageSource.UpdateSourceAsync(NativeView, ImageSourceServiceProvider, SetImage!, token)
 						.ConfigureAwait(false);
 

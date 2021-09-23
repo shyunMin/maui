@@ -10,7 +10,10 @@ using NativeView = AndroidX.AppCompat.Widget.AppCompatImageButton;
 #elif WINDOWS
 using NativeImage = Microsoft.UI.Xaml.Media.ImageSource;
 using NativeView = Microsoft.UI.Xaml.FrameworkElement;
-#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
+#elif TIZEN
+using NativeImage = Tizen.UIExtensions.ElmSharp.Image;
+using NativeView = Tizen.UIExtensions.ElmSharp.Image;
+#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID && !TIZEN)
 using NativeView = System.Object;
 using NativeImage = System.Object;
 #endif
@@ -44,6 +47,8 @@ namespace Microsoft.Maui.Handlers
 		UI.Xaml.Controls.Image IImageHandler.TypedNativeView => (UI.Xaml.Controls.Image)NativeView.Content;
 #elif __ANDROID__
 		Android.Widget.ImageView IImageHandler.TypedNativeView => NativeView;
+#elif TIZEN
+		Tizen.UIExtensions.ElmSharp.Image IImageHandler.TypedNativeView => NativeView;
 #else
 		object IImageHandler.TypedNativeView => NativeView;
 #endif

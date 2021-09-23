@@ -6,7 +6,9 @@ using NativeView = UIKit.UIImage;
 using NativeView = Android.Graphics.Drawables.Drawable;
 #elif WINDOWS
 using NativeView = Microsoft.UI.Xaml.Media.ImageSource;
-#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
+#elif TIZEN
+using NativeView = Tizen.UIExtensions.ElmSharp.Image;
+#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID && !TIZEN)
 using NativeView = System.Object;
 #endif
 
