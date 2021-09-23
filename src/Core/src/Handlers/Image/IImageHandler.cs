@@ -4,7 +4,9 @@ using NativeView = UIKit.UIImageView;
 using NativeView = Android.Widget.ImageView;
 #elif WINDOWS
 using NativeView = Microsoft.UI.Xaml.Controls.Image;
-#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID)
+#elif TIZEN
+using NativeView = Tizen.UIExtensions.ElmSharp.Image;
+#elif NETSTANDARD || (NET6_0 && !IOS && !ANDROID && !TIZEN)
 using NativeView = System.Object;
 #endif
 
