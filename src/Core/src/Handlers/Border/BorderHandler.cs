@@ -5,6 +5,8 @@ using NativeView = Microsoft.Maui.Handlers.ContentView;
 using NativeView = Microsoft.Maui.Handlers.ContentViewGroup;
 #elif WINDOWS
 using NativeView = Microsoft.Maui.Handlers.ContentPanel;
+#elif TIZEN
+using NativeView = Microsoft.Maui.ContentCanvas;
 #elif NETSTANDARD
 using NativeView = System.Object;
 #endif
