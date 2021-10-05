@@ -83,7 +83,7 @@ namespace Microsoft.Maui.Handlers
 		{
 			get
 			{
-#if WINDOWS
+#if WINDOWS || TIZEN
 				if(VirtualView is IBorder border)
 					return border?.Shape != null || border?.Stroke != null;
 				
