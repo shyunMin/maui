@@ -7,6 +7,8 @@ using NativeView = UIKit.UIApplicationDelegate;
 using NativeView = Android.App.Application;
 #elif WINDOWS
 using NativeView = Microsoft.UI.Xaml.Application;
+#elif TIZEN
+using NativeView = Tizen.Applications.CoreUIApplication;
 #endif
 
 namespace Microsoft.Maui.Handlers
