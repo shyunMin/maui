@@ -6,6 +6,9 @@ namespace Microsoft.Maui.Handlers
 		public static IPropertyMapper<IContentView, ContentViewHandler> ContentViewMapper = new PropertyMapper<IContentView, ContentViewHandler>(ViewMapper)
 		{
 			[nameof(IContentView.Content)] = MapContent,
+#if TIZEN
+			[nameof(IContentView.Background)] = MapBackground,
+#endif
 		};
 
 		public static CommandMapper<IPicker, PickerHandler> ContentViewCommandMapper = new(ViewCommandMapper)

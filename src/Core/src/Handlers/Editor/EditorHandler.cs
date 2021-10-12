@@ -5,7 +5,7 @@ namespace Microsoft.Maui.Handlers
 	{
 		public static IPropertyMapper<IEditor, EditorHandler> EditorMapper = new PropertyMapper<IEditor, EditorHandler>(ViewHandler.ViewMapper)
 		{
-#if __ANDROID__
+#if __ANDROID__ || TIZEN
 			[nameof(IEditor.Background)] = MapBackground,
 #endif
 			[nameof(IEditor.CharacterSpacing)] = MapCharacterSpacing,

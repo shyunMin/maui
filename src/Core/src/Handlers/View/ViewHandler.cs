@@ -183,12 +183,7 @@ namespace Microsoft.Maui.Handlers
 
 		public static void MapBackground(IViewHandler handler, IView view)
 		{
-#if TIZEN
-			handler.UpdateValue(nameof(IViewHandler.ContainerView));
-			handler.GetWrappedNativeView()?.UpdateBackground(view);
-#else
 			((NativeView?)handler.NativeView)?.UpdateBackground(view);
-#endif
 		}
 
 		public static void MapFlowDirection(IViewHandler handler, IView view)

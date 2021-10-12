@@ -5,7 +5,7 @@ namespace Microsoft.Maui.Handlers
 	{
 		public static IPropertyMapper<ILabel, LabelHandler> LabelMapper = new PropertyMapper<ILabel, LabelHandler>(ViewHandler.ViewMapper)
 		{
-#if WINDOWS || __IOS__
+#if WINDOWS || __IOS__ || TIZEN
 			[nameof(ILabel.Background)] = MapBackground,
 #endif
 			[nameof(ILabel.CharacterSpacing)] = MapCharacterSpacing,

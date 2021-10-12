@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Handlers
 	{
 		public static IPropertyMapper<IEntry, EntryHandler> EntryMapper = new PropertyMapper<IEntry, EntryHandler>(ViewHandler.ViewMapper)
 		{
-#if __ANDROID__
+#if __ANDROID__ || TIZEN
 			[nameof(IEntry.Background)] = MapBackground,
 #endif
 			[nameof(IEntry.CharacterSpacing)] = MapCharacterSpacing,
