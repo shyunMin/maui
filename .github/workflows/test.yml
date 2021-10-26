@@ -1,0 +1,18 @@
+name: GitHub Actions Pull Request Checkstyle
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.SOME_TOKEN }}
+    steps:
+    - name: "Check branch name and commit messages style"
+      uses: maximbircu/pull-request-checkstyle@v1.0.0
+      with:
+        commit-message-title-regex: ".*"     # Commit message title regex (Note that it validates just the first line of the commit message)
+        commit-message-title-min-length: 20  # Commit message title min length (Note that it validates just the first line of the commit message)
+        commit-message-title-max-length: 72  # Commit message title max length (Note that it validates just the first line of the commit message)
+
+        branch-name-regex: ".*"        # Branch name regex
+        branch-name-min-length: 20     # Branch name min length
+        branch-name-max-length: 72     # Branch name max length
