@@ -1,17 +1,18 @@
-name: GitHub Actions Demo
-on: [push]
+name: GitHub Actions Pull Request Checkstyle
+on: [pull_request]
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.SOME_TOKEN }}
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+    - name: "Check branch name and commit messages style"
+      uses: maximbircu/pull-request-checkstyle@v1.0.0
+      with:
+        commit-message-title-regex: ".*"     # Commit message title regex (Note that it validates just the first line of the commit message)
+        commit-message-title-min-length: 20  # Commit message title min length (Note that it validates just the first line of the commit message)
+        commit-message-title-max-length: 72  # Commit message title max length (Note that it validates just the first line of the commit message)
+
+        branch-name-regex: ".*"        # Branch name regex
+        branch-name-min-length: 20     # Branch name min length
+        branch-name-max-length: 72     # Branch name max length
