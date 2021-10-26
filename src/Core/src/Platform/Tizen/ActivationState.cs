@@ -6,7 +6,7 @@ namespace Microsoft.Maui
 	{
 		public ActivationState(IMauiContext context)
 		{
-			Context = context ?? throw new ArgumentNullException(nameof(context));
+			Context = context ?? throw new ArgumentNullException(nameof(context))   ;
 		}
 
 		public IMauiContext Context { get; }
