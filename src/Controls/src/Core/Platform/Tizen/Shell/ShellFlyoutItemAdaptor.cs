@@ -122,7 +122,7 @@ namespace Microsoft.Maui.Controls.Platform
 			var item = this[index];
 			if (item != null && _dataBindedViewTable.TryGetValue(item, out View? createdView) && createdView != null)
 			{
-				return createdView.Measure(DPExtensions.ConvertToScaledDP(widthConstraint), DPExtensions.ConvertToScaledDP(heightConstraint), MeasureFlags.IncludeMargins).Request.ToEFLPixel();
+				return createdView.Measure(DPExtensions.ConvertToScaledDP(widthConstraint), double.PositiveInfinity, MeasureFlags.IncludeMargins).Request.ToEFLPixel();
 			}
 
 			return new Size(0, 0);
