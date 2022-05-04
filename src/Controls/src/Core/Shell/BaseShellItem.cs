@@ -364,7 +364,7 @@ namespace Microsoft.Maui.Controls
 				var selectedState = new VisualState();
 				selectedState.Name = "Selected";
 
-				if ((DeviceInfo.Platform != DevicePlatform.WinUI))
+				if (DeviceInfo.Platform != DevicePlatform.WinUI)
 				{
 					selectedState.Setters.Add(new Setter
 					{
@@ -373,14 +373,11 @@ namespace Microsoft.Maui.Controls
 					});
 				}
 
-				if (DeviceInfo.Platform != DevicePlatform.Tizen)
+				normalState.Setters.Add(new Setter
 				{
-					normalState.Setters.Add(new Setter
-					{
-						Property = VisualElement.BackgroundColorProperty,
-						Value = Colors.Transparent
-					});
-				}
+					Property = VisualElement.BackgroundColorProperty,
+					Value = Colors.Transparent
+				});
 
 				commonGroup.States.Add(selectedState);
 

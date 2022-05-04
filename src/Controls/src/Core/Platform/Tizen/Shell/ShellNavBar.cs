@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Controls.Platform
 		FlyoutBehavior _flyoutBehavior = FlyoutBehavior.Flyout;
 
 		EColor _backgroudColor = ShellView.DefaultBackgroundColor;
-		EColor _foregroudColor = ShellView.DefaultForegroundColor;
+		EColor _foregroundColor = ShellView.DefaultForegroundColor;
 		EColor _titleColor = ShellView.DefaultTitleColor;
 
 		bool _hasBackButton = false;
@@ -46,7 +46,7 @@ namespace Microsoft.Maui.Controls.Platform
 			_menuButton.Clicked += OnMenuClicked;
 			_menuIcon = new MaterialIcon(PlatformParent)
 			{
-				Color = _foregroudColor.ToCommon()
+				Color = _foregroundColor.ToCommon()
 			};
 			UpdateMenuIcon();
 
@@ -160,11 +160,11 @@ namespace Microsoft.Maui.Controls.Platform
 		{
 			get
 			{
-				return _foregroudColor;
+				return _foregroundColor;
 			}
 			set
 			{
-				_foregroudColor = value;
+				_foregroundColor = value;
 			}
 		}
 

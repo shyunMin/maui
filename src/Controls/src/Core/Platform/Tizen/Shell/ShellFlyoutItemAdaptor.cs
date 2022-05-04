@@ -74,6 +74,14 @@ namespace Microsoft.Maui.Controls.Platform
 				var content = (View)template.CreateContent();
 				var native = content.ToPlatform(_context);
 
+				if (content.Handler is IPlatformViewHandler handler)
+				{
+					handler.ForceContainer = true;
+					handler.HasContainer = true;
+
+					native = handler.ContainerView!;
+				}
+
 				_nativeFormsTable[native] = content;
 				return native;
 			}
@@ -96,6 +104,15 @@ namespace Microsoft.Maui.Controls.Platform
 			if (_headerCache != null)
 			{
 				var native = _headerCache.ToPlatform(_context);
+
+				if (_headerCache.Handler is IPlatformViewHandler handler)
+				{
+					handler.ForceContainer = true;
+					handler.HasContainer = true;
+
+					native = handler.ContainerView!;
+				}
+
 				return native;
 			}
 
