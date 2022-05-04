@@ -12,7 +12,7 @@ namespace Microsoft.Maui.Controls.Platform
 {
 	public class ShellFlyoutItemAdaptor : ItemAdaptor
 	{
-		Dictionary<EvasObject, View> _nativeFormsTable = new Dictionary<EvasObject, View>();
+		Dictionary<EvasObject, View> _platformViewsTable = new Dictionary<EvasObject, View>();
 		Dictionary<object, View?> _dataBindedViewTable = new Dictionary<object, View?>();
 		
 		Shell _shell;
@@ -72,18 +72,18 @@ namespace Microsoft.Maui.Controls.Platform
 			if (template != null)
 			{
 				var content = (View)template.CreateContent();
-				var native = content.ToPlatform(_context);
+				var platformView = content.ToPlatform(_context);
 
 				if (content.Handler is IPlatformViewHandler handler)
 				{
 					handler.ForceContainer = true;
 					handler.HasContainer = true;
 
-					native = handler.ContainerView!;
+					platformView = handler.ContainerView!;
 				}
 
-				_nativeFormsTable[native] = content;
-				return native;
+				_platformViewsTable[platformView] = content;
+				return platformView;
 			}
 
 			return null;
@@ -103,17 +103,17 @@ namespace Microsoft.Maui.Controls.Platform
 
 			if (_headerCache != null)
 			{
-				var native = _headerCache.ToPlatform(_context);
+				var platformView = _headerCache.ToPlatform(_context);
 
 				if (_headerCache.Handler is IPlatformViewHandler handler)
 				{
 					handler.ForceContainer = true;
 					handler.HasContainer = true;
 
-					native = handler.ContainerView!;
+					platformView = handler.ContainerView!;
 				}
 
-				return native;
+				return platformView;
 			}
 
 			return null;
@@ -145,14 +145,14 @@ namespace Microsoft.Maui.Controls.Platform
 			return new Size(0, 0);
 		}
 
-		public override void RemoveNativeView(EvasObject native)
+		public override void RemoveNativeView(EvasObject platformView)
 		{
-			native?.Unrealize();
+			platformView?.Unrealize();
 		}
 
-		public override void SetBinding(EvasObject native, int index)
+		public override void SetBinding(EvasObject platformView, int index)
 		{
-			if (_nativeFormsTable.TryGetValue(native, out View? view))
+			if (_platformViewsTable.TryGetValue(platformView, out View? view))
 			{
 				ResetBindedView(view);
 				var item = this[index];
@@ -167,9 +167,9 @@ namespace Microsoft.Maui.Controls.Platform
 			}
 		}
 
-		public override void UnBinding(EvasObject native)
+		public override void UnBinding(EvasObject platformView)
 		{
-			if (_nativeFormsTable.TryGetValue(native, out View? view))
+			if (_platformViewsTable.TryGetValue(platformView, out View? view))
 			{
 				view.MeasureInvalidated -= OnItemMeasureInvalidated;
 				ResetBindedView(view);
