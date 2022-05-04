@@ -126,7 +126,7 @@ namespace Microsoft.Maui.Controls.Platform
 
 		public override Size MeasureHeader(int widthConstraint, int heightConstraint)
 		{
-			return _headerCache?.Measure(DPExtensions.ConvertToScaledDP(widthConstraint), DPExtensions.ConvertToScaledDP(heightConstraint)).Request.ToEFLPixel() ?? new Size(0, 0);
+			return _headerCache?.Measure(DPExtensions.ConvertToScaledDP(widthConstraint), double.PositiveInfinity).Request.ToEFLPixel() ?? new Size(0, 0);
 		}
 
 		public override Size MeasureItem(int widthConstraint, int heightConstraint)
