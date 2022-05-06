@@ -72,15 +72,7 @@ namespace Microsoft.Maui.Controls.Platform
 			if (template != null)
 			{
 				var content = (View)template.CreateContent();
-				var platformView = content.ToPlatform(_context);
-
-				if (content.Handler is IPlatformViewHandler handler)
-				{
-					handler.ForceContainer = true;
-					handler.HasContainer = true;
-
-					platformView = handler.ContainerView!;
-				}
+				var platformView = GetPlatformView(content);
 
 				_platformViewsTable[platformView] = content;
 				return platformView;
@@ -102,19 +94,7 @@ namespace Microsoft.Maui.Controls.Platform
 			_headerCache = ((IShellController)Shell).FlyoutHeader;
 
 			if (_headerCache != null)
-			{
-				var platformView = _headerCache.ToPlatform(_context);
-
-				if (_headerCache.Handler is IPlatformViewHandler handler)
-				{
-					handler.ForceContainer = true;
-					handler.HasContainer = true;
-
-					platformView = handler.ContainerView!;
-				}
-
-				return platformView;
-			}
+				return  GetPlatformView(_headerCache);
 
 			return null;
 		}
@@ -197,6 +177,20 @@ namespace Microsoft.Maui.Controls.Platform
 					CollectionView?.ItemMeasureInvalidated(index);
 				}
 			}
+		}
+
+		EvasObject GetPlatformView(View view)
+		{
+			var platformView = view.ToPlatform(_context);
+
+			if (view.Handler is IPlatformViewHandler handler)
+			{
+				handler.ForceContainer = true;
+				handler.HasContainer = true;
+
+				platformView = handler.ContainerView!;
+			}
+			return platformView;
 		}
 	}
 }
