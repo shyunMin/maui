@@ -93,10 +93,7 @@ namespace Microsoft.Maui.Controls.Platform
 
 			_headerCache = ((IShellController)Shell).FlyoutHeader;
 
-			if (_headerCache != null)
-				return  GetPlatformView(_headerCache);
-
-			return null;
+			return (_headerCache != null) ? GetPlatformView(_headerCache) : null;
 		}
 
 		public override Size MeasureFooter(int widthConstraint, int heightConstraint)
